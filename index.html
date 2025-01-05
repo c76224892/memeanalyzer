@@ -29,41 +29,27 @@
             overflow: hidden;
         }
 
-        /* Scanner Background Animation */
+        /* Moving Stripes Background Animation */
         .stripes {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #0f0f0f; /* Base background color */
-            overflow: hidden;
+            background: repeating-linear-gradient(
+                90deg, /* Vertical stripes */
+                rgba(255, 255, 255, 0.05),
+                rgba(255, 255, 255, 0.05) 5px,
+                rgba(255, 255, 255, 0.1) 5px,
+                rgba(255, 255, 255, 0.1) 10px
+            );
+            animation: moveStripes 3s linear infinite;
             z-index: 0;
         }
 
-        .stripes::before {
-            content: '';
-            position: absolute;
-            top: -100px; /* Start above the visible area */
-            left: 0;
-            width: 100%;
-            height: 100px; /* Thickness of the scanner line */
-            background: linear-gradient(
-                to bottom,
-                rgba(0, 255, 255, 0) 0%,
-                rgba(0, 255, 255, 0.5) 50%,
-                rgba(0, 255, 255, 0) 100%
-            );
-            animation: scan 5s linear infinite;
-        }
-
-        @keyframes scan {
-            0% {
-                top: -100px; /* Start above the screen */
-            }
-            100% {
-                top: 100%; /* Move to the bottom of the screen */
-            }
+        @keyframes moveStripes {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-20px); }
         }
 
         .container {
@@ -155,7 +141,6 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
-            font-weight: bold; /* Made the button text bold */
         }
 
         button:hover {
@@ -398,14 +383,10 @@
                 return temp.innerHTML;
             }
 
-            // Function to generate fake metrics with Market Cap >= $6,000
+            // Function to generate fake metrics with smaller numbers
             function generateFakeMetrics() {
-                const minMarketCap = 6000; // Minimum Market Cap
-                const maxMarketCap = 100000; // Maximum Market Cap
-                const marketCapValue = minMarketCap + Math.random() * (maxMarketCap - minMarketCap);
-
                 return {
-                    marketCap: `$${marketCapValue.toFixed(2)}`, // $6,000 to $100,000
+                   marketCap: `$${(6000 + Math.random() * 94000).toFixed(2)}`, // $6,000 to $100,000
                     holders: Math.floor(Math.random() * 1000), // Up to 1,000
                     transactionVolume: `${(Math.random() * 1000).toFixed(2)} SOL`, // Up to 1,000 SOL
                     twitterFollowers: Math.floor(Math.random() * 10000), // Up to 10,000
@@ -468,6 +449,7 @@
                     <p>We advise you not to invest in this memecoin.</p>
                 `;
             }
-        </script>
+        });
+    </script>
 </body>
 </html>
