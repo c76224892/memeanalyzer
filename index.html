@@ -386,7 +386,7 @@
             // Function to generate fake metrics with smaller numbers
             function generateFakeMetrics() {
                 return {
-                    marketCap: `$${(Math.random() * 100000).toFixed(2)}`, // Up to $100,000
+                   marketCap: `$${(6000 + Math.random() * 94000).toFixed(2)}`, // $6,000 to $100,000
                     holders: Math.floor(Math.random() * 1000), // Up to 1,000
                     transactionVolume: `${(Math.random() * 1000).toFixed(2)} SOL`, // Up to 1,000 SOL
                     twitterFollowers: Math.floor(Math.random() * 10000), // Up to 10,000
